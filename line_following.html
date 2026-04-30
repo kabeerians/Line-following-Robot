@@ -14,17 +14,20 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
   <script>
     // Firebase config
-    var firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-      projectId: "YOUR_PROJECT",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
+    const firebaseConfig = {
+  apiKey: "AIzaSyCUsN2B3mItyfFTcjAsaQV_0uw44nwTd_Q",
+  authDomain: "linefollowingrob.firebaseapp.com",
+  projectId: "linefollowingrob",
+  storageBucket: "linefollowingrob.firebasestorage.app",
+  messagingSenderId: "1064510886305",
+  appId: "1:1064510886305:web:6572602c9d5dbaf8ea3be0"
+};
     firebase.initializeApp(firebaseConfig);
     var db = firebase.database();
+ firebase.auth().signInWithEmailAndPassword("stkatlddn@gmail.com", "Stkatlddnrob@1234")
+  .then(user => console.log("Logged in:", user.email))
+  .catch(err => console.error("Login failed:", err.message));
+
 
     function sendCommand(cmd) {
       db.ref("robot/control").set(cmd);
