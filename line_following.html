@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+ //49ctYoExJeVo1w61X1Mv6cbsX2v1
+ 
+
+
+  <title>Robot Control</title>
+  <style>
+    body { font-family: Arial; text-align: center; }
+    button { margin: 10px; padding: 15px; font-size: 18px; }
+    input[type=range] { width: 300px; }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+  <script>
+    // Firebase config
+    var firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+      projectId: "YOUR_PROJECT",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.database();
+
+    function sendCommand(cmd) {
+      db.ref("robot/control").set(cmd);
+    }
+
+    function setSpeed(val) {
+      db.ref("robot/speed").set(parseInt(val));
+    }
+
+    // Listen for speed feedback
+    db.ref("robot/currentSpeed").on("value", function(snapshot) {
+      document.getElementById("speedDisplay").innerText = "Current Speed: " + snapshot.val();
+    });
+  </script>
+</head>
+<body>
+  <h1>Robot Control Dashboard</h1>
+  <button onclick="sendCommand('forward')">Forward</button>
+  <button onclick="sendCommand('left')">Left</button>
+  <button onclick="sendCommand('right')">Right</button>
+  <button onclick="sendCommand('stop')">Stop</button>
+  <br><br>
+  <input type="range" min="0" max="1023" value="800" oninput="setSpeed(this.value)">
+  <p id="speedDisplay">Current Speed: 800</p>
+</body>
+</html>
